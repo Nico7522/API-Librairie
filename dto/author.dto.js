@@ -1,4 +1,5 @@
-const BookDTO = require("./book.dto");
+const {BookDTO} = require("./book.dto");
+
 
 class AuthorDTO {
   constructor({ id, name, surname, birthdate, Books }) {
@@ -9,5 +10,6 @@ class AuthorDTO {
     this.books = Books ? Books.map(book => new BookDTO(book)) : [];
   }
 }
+
 
 module.exports = AuthorDTO;
