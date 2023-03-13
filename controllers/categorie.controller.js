@@ -51,7 +51,12 @@ const categorieController = {
   },
 
   delete: async (req, res) => {
-    res.sendStatus(501);
+    const { id } = req.params;
+    const isDeleted = categorieService.delete(id);
+    if (!isDeleted) {
+      res.sendStatus(404);
+    }
+    res.sendStatus(204);
   },
 };
 

@@ -9,6 +9,6 @@ categorieRouter.route('/')
 categorieRouter.route('/:id')
     .get(categorieController.getById)
     .put(categorieController.update)
-    .delete()
+    .delete(categorieController.delete)
 
 module.exports = categorieRouter;

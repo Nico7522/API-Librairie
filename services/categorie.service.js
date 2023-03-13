@@ -43,6 +43,11 @@ const categorieService = {
   update: async (id, categorieToUpdate) => {
     const isUpdated = await db.Categorie.update(categorieToUpdate, { where: { id }});
     return isUpdated[0] === 1;
+  },
+
+  delete: async (id) => {
+    const isDeleted = await db.Categorie.destroy({where : { id }});
+    return isDeleted[0] === 1
   }
 };
 

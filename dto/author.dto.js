@@ -1,4 +1,4 @@
-const {BookDTO} = require("./book.dto");
+const BookDTO = require("./book.dto");
 
 
 class AuthorDTO {

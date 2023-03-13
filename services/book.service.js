@@ -1,12 +1,12 @@
-const {BookDTO} = require("../dto/book.dto");
-const { Author } = require("../models");
+const BookDTO = require("../dto/book.dto");
+const { Author, Categorie } = require("../models");
 const db = require("../models");
 
 const bookService = {
   getAll: async () => {
     const { rows, count } = await db.Book.findAndCountAll({
       distinct: true,
-      include: [Author],
+      include: [Author, Categorie],
     });
     return {
       books: rows.map(book => new BookDTO(book)),
@@ -16,7 +16,7 @@ const bookService = {
 
   getById: async (id) => {
     const book = await db.Book.findByPk(id, {
-      include: [Author]
+      include: [Author, Categorie]
     })
     return book ? new BookDTO(book): null;
   },
