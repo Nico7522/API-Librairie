@@ -7,8 +7,9 @@ class SuccessResponse {
 
 
 class SuccessArrayResponse {
-    constructor(data, code = 200) {
-        this.results = data
+    constructor(data, count, code = 200) {
+        this.results = data;
+        this.count = count
         this.statusCode = code;
     }
 }

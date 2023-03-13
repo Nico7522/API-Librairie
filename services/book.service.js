@@ -14,7 +14,12 @@ const bookService = {
     }
   },
 
-  getById: async (id) => {},
+  getById: async (id) => {
+    const book = await db.Book.findByPk(id, {
+      include: [Author]
+    })
+    return book ? new BookDTO(book): null;
+  },
 
   create: async (bookToCreate) => {
     const transaction = await db.sequelize.transaction();
@@ -33,7 +38,7 @@ const bookService = {
       });
 
       return finalBook ? new BookDTO(finalBook) : null;
-      console.log(finalBook);
+
     } catch (error) {
       await transaction.rollback();
       return null;

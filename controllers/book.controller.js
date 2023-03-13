@@ -17,7 +17,13 @@ const bookController = {
    * @param { Response } res
    */
   getById: async (req, res) => {
-    res.sendStatus(501);
+    const { id } = req.params;
+    const book = await bookService.getById(id)
+    if (!book) {
+      res.sendStatus(404)
+      return;
+    };
+    res.status(200).json(new SuccessResponse(book));
   },
     /**
    * @param { Request } req
@@ -35,7 +41,14 @@ const bookController = {
    * @param { Response } res
    */
   update: async (req, res) => {
-    res.sendStatus(501);
+    const { id } = req.params
+    const data = req.body
+    const isUpdated = await bookService.update(id, data)
+    if (!isUpdated) {
+      res.sendStatus(404)
+      return;
+    }
+    res.sendStatus(204);
   },
     /**
    * @param { Request } req

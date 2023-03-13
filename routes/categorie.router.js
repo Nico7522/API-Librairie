@@ -4,11 +4,11 @@ const categorieRouter = require('express').Router();
 
 categorieRouter.route('/')
     .get(categorieController.getAll)
-    .post()
+    .post(categorieController.create)
 
 categorieRouter.route('/:id')
-    .get()
-    .put()
+    .get(categorieController.getById)
+    .put(categorieController.update)
     .delete()
 
 module.exports = categorieRouter;
