@@ -3,7 +3,7 @@ const yup = require("yup");
 const bookValidator = yup.object({
   title: yup.string().required().trim(),
   price: yup.number().nullable().positive(),
-  authors: yup.array.of(
+  authors: yup.array().of(
     yup.object({
       id: yup.number().integer().positive().required(),
       role: yup.string(),
