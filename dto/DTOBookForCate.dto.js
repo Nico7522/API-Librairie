@@ -1,3 +1,5 @@
+const AuthorBookDTO = require("./author.book.dto");
+
 class DTOBookForCate {
     constructor({id, title, price, Authors, }) {
         this.id = id;

@@ -35,7 +35,7 @@ module.exports = (sequelize) => {
             unique: "UK_User_PhoneNumber"
         },
         password: {
-            type: DataTypes.STRING(50),
+            type: DataTypes.STRING(100),
             allowNull: false
         },
         role: {

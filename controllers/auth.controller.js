@@ -1,6 +1,7 @@
 const { Request, Response } = require("express");
 const authService = require("../services/auth.service");
 const ErrorResponse = require("../utils/error.response");
+const jwt = require("../utils/jwt");
 const { SuccessResponse } = require("../utils/success.response");
 
 const authController = {
@@ -12,7 +13,8 @@ const authController = {
   register: async (req, res) => {
     const data = req.body;
     const user = await authService.register(data);
-    res.status(201).json(new SuccessResponse(user, 201));
+    const token = await jwt.generate(user);
+    res.status(201).json(new SuccessResponse({token,user}, 201));
   },
   /**
    * @param { Request } req
@@ -26,8 +28,9 @@ const authController = {
       res.status(400).json(new ErrorResponse("Login error, please try again."));
       return;
     }
-    console.log('okok');
-    res.status(200).json(new ErrorResponse("You're now loged, welcome !"));
+    const token = await jwt.generate(user);
+
+    res.status(200).json(new SuccessResponse({token, user}));
   },
 };
 

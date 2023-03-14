@@ -10,10 +10,20 @@ module.exports = (sequelize) => {
     title: {
       type: DataTypes.STRING(50),
       allowNull: false,
+      validate: {
+        notNull: true,
+        notEmpty: true,
+        len: [1, 50]
+      }
     },
     price: {
       type: DataTypes.FLOAT,
       allowNull: true,
+      validate: {
+        notNull: false,
+        notEmpty: false,
+        isFloat: true
+      }
     },
   },
   {

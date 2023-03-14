@@ -1,4 +1,5 @@
 const BookDTO = require("./book.dto");
+const DTOBookForAuthor = require("./DTOBookForAuthor");
 
 
 class AuthorDTO {
@@ -7,7 +8,7 @@ class AuthorDTO {
     this.name = name;
     this.surname = surname;
     this.birthdate = birthdate;
-    this.books = Books ? Books.map(book => new BookDTO(book)) : [];
+    this.books = Books ? Books.map(book => new DTOBookForAuthor(book)) : [];
   }
 }
 

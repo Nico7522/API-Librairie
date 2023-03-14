@@ -52,7 +52,7 @@ const categorieController = {
 
   delete: async (req, res) => {
     const { id } = req.params;
-    const isDeleted = categorieService.delete(id);
+    const isDeleted = await categorieService.delete(id);
     if (!isDeleted) {
       res.sendStatus(404);
     }

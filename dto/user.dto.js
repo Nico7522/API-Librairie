@@ -1,12 +1,13 @@
 class UserDTO {
-    constructor({id, name, surname, birthdate, adresse, email, phonenumber}){
+    constructor({id, name, surname, birtdate, adresse, email, phonenumber, role}){
         this.id = id;
         this.name = name;
         this.surname = surname;
-        this.birthdate = birthdate;
+        this.birthdate = birtdate;
         this.adresse = adresse;
         this.email = email;
         this.phonenumber = phonenumber;
+        this.role = role
 
     }
 

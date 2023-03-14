@@ -46,7 +46,14 @@ const userController = {
      * @param { Response } res
      */
     delete: async (req, res) => {
-        res.sendStatus(501);
+        const { id } = req.params;
+        const isDeleted = await userService.delete(id);
+        if (!isDeleted) {
+            res.sendStatus(404);
+            return;
+        }
+        res.sendStatus(204)
+
     }
 }
 

@@ -26,15 +26,19 @@ const bookService = {
     let book;
     try {
       book = await db.Book.create(bookToCreate, { transaction });
-      for (const author of bookToCreate.authors) {
-        await book.addAuthor(author.id, {
-          through: { role: author.role },
-          transaction,
-        });
+      if (bookToCreate.authors) {
+        for (const author of bookToCreate.authors) {
+          await book.addAuthor(author.id, {
+            through: { role: author.role },
+            transaction,
+          });
+        }
+        
       }
+      await book.addCategorie(bookToCreate.categories, { transaction })
       await transaction.commit();
       const finalBook = await db.Book.findByPk(book.id, {
-        include: [Author]
+        include: [Author, Categorie]
       });
 
       return finalBook ? new BookDTO(finalBook) : null;

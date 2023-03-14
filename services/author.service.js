@@ -25,7 +25,15 @@ const authorService = {
     let author;
     try {
         author = await db.Author.create(authorToCreate, { transaction });
-        await author.addBook(authorToCreate.books, { transaction })
+        if (authorToCreate.books) {
+          for (const book of authorToCreate.books) {
+            await author.addBook(book.id, {
+              through: { role: book.role },
+              transaction,
+            });
+          }
+          
+        }
         await transaction.commit();
         const finalAuthor = await db.Author.findByPk(author.id, {
             include : [Book]

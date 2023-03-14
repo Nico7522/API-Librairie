@@ -9,15 +9,30 @@ module.exports = (sequelize) => {
     const Author = sequelize.define("Author", {
         name: {
             type: DataTypes.STRING(50),
-            allowNull : false
+            allowNull : false,
+            validate: {
+                notNull: true,
+                notEmpty: true,
+                len: [1, 50]
+            }
         },
         surname : {
             type : DataTypes.STRING(50),
-            allowNull: false
+            allowNull: false,
+            validate: {
+                notNull: true,
+                notEmpty: true,
+                len: [1, 50]
+            }
         },
         birthdate: {
             type : DataTypes.DATE,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                notNull: true,
+                notEmpty: true,
+                isDate: true
+            }
         },
     },
     {

@@ -1,11 +1,14 @@
 const bookController = require('../controllers/book.controller');
+const bodyValidator = require('../middlewares/body.validator');
+const authJwt = require('../middlewares/jwt-middleware');
+const bookValidator = require('../validators/book.validator');
 
 const bookRouter = require('express').Router();
 
 
 bookRouter.route('/')
-    .get(bookController.getAll)
-    .post(bookController.create)
+    .get(authJwt(["User"]) ,bookController.getAll)
+    .post(bodyValidator(bookValidator),bookController.create)
 
 bookRouter.route('/:id')
     .get(bookController.getById)
