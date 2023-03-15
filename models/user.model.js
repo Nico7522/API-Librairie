@@ -35,9 +35,10 @@ module.exports = (sequelize) => {
           notNull: true,
           notEmpty: true,
           customValidator() {
+            const date = new Date().getFullYear()
             if (
               this.birtdate.getFullYear() >
-              this.birtdate.getFullYear() - 18
+              date - 18
             ) {
               throw new Error("Vous devez être majeur");
             }
@@ -74,22 +75,23 @@ module.exports = (sequelize) => {
         },
       },
       password: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING,
         allowNull: false,
-        validate: {
-          is: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
-          notNull: true,
-          notEmpty: true,
-          len: [8, 100],
-        },
+        // validate: {
+        //   is: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
+        //   notNull: true,
+        //   notEmpty: true,
+        //   len: [8, 100],
+        // },
       },
       role: {
         type: DataTypes.STRING(10),
+        allowNull: false,
         defaultValue: "User",
         validate: {
           isIn: [["User", "Sous admin", "Admin"]],
-          allowNull: true,
-          notEmpty: false,
+          notNull : true,
+          notEmpty : true,
         },
       },
     },

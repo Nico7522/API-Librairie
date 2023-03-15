@@ -15,7 +15,7 @@ userRouter.route('/:id')
     .delete(userController.delete)
 
 userRouter.route('/auth')
-    .post(bodyValidator(userValidator),authController.register)
+    .post(authController.register)
     
 userRouter.route('/login')
     .post(authController.login)

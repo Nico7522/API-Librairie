@@ -9,7 +9,7 @@ const userValidator = yup.object({
     email: yup.string().max(100).required().email().trim(),
     phonenumber: yup.number().integer().max(10).required(),
     password: yup.string().matches(regex).min(8).max(100).required(),
-    role: yup.string(),
+    // role: yup.string().notRequired(),
 })
 
 module.exports = userValidator;

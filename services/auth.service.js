@@ -14,13 +14,13 @@ const authService = {
     const user = await db.User.findOne({
       where: { email },
     });
-
+    console.log(user);
     if (!user) {
       return null;
     }
 
     const isValid = await argon2.verify(user.password, password);
-
+    console.log(isValid);
     if (!isValid) {
       return null;
     }
