@@ -12,7 +12,7 @@ bookRouter.route('/')
 
 bookRouter.route('/:id')
     .get(bookController.getById)
-    .put(bookController.update)
+    .put(bodyValidator(bookValidator),bookController.update)
     .delete(bookController.delete);
 
 

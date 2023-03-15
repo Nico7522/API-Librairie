@@ -10,7 +10,7 @@ authorRouter.route('/')
 
 authorRouter.route('/:id')
     .get(authorController.getById)
-    .put(authorController.update)
+    .put(bodyValidator(authorValidator),authorController.update)
     .delete(authorController.delete)
 
 module.exports = authorRouter;

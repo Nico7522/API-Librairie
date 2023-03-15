@@ -1,5 +1,4 @@
-const { Sequelize, ModelStatic, DataTypes } = require('sequelize');
-
+const { Sequelize, ModelStatic, DataTypes } = require("sequelize");
 
 /**
  * @param { Sequelize } sequelize
@@ -7,45 +6,96 @@ const { Sequelize, ModelStatic, DataTypes } = require('sequelize');
  */
 
 module.exports = (sequelize) => {
-    const User = sequelize.define('User', {
-        name: {
-            type: DataTypes.STRING(50),
-            allowNull: false
+  const User = sequelize.define(
+    "User",
+    {
+      name: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+          len: [1, 50],
         },
-        surname: {
-            type: DataTypes.STRING(50),
-            allowNull: false
+      },
+      surname: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+          len: [1, 50],
         },
-        birtdate: {
-            type: DataTypes.DATE,
-            allowNull: false
+      },
+      birtdate: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        validate: {
+          isDate: true,
+          notNull: true,
+          notEmpty: true,
+          customValidator() {
+            if (
+              this.birtdate.getFullYear() >
+              this.birtdate.getFullYear() - 18
+            ) {
+              throw new Error("Vous devez être majeur");
+            }
+          },
         },
-        adresse: {
-            type: DataTypes.STRING(100),
-            allowNull: false
+      },
+      adresse: {
+        type: DataTypes.STRING(100),
+        allowNull: false,
+        validate: {
+          notNull: true,
+          notEmpty: true,
+          len: [1, 100],
         },
-        email: {
-            type: DataTypes.STRING(100),
-            allowNull: false,
-            unique: 'UK_User_Email'
+      },
+      email: {
+        type: DataTypes.STRING(100),
+        allowNull: false,
+        unique: "UK_User_Email",
+        validate: {
+          notNull: true,
+          notEmpty: true,
+          len: [1, 100],
         },
-        phonenumber: {
-            type: DataTypes.INTEGER(10),
-            allowNull: false,
-            unique: "UK_User_PhoneNumber"
+      },
+      phonenumber: {
+        type: DataTypes.INTEGER(10),
+        allowNull: false,
+        unique: "UK_User_PhoneNumber",
+        validate: {
+          notNull: true,
+          notEmpty: true,
+          len: [1, 10],
         },
-        password: {
-            type: DataTypes.STRING(100),
-            allowNull: false
+      },
+      password: {
+        type: DataTypes.STRING(100),
+        allowNull: false,
+        validate: {
+          is: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,
+          notNull: true,
+          notEmpty: true,
+          len: [8, 100],
         },
-        role: {
-            type: DataTypes.STRING(10),
-            defaultValue: "User"
-        }
+      },
+      role: {
+        type: DataTypes.STRING(10),
+        defaultValue: "User",
+        validate: {
+          isIn: [["User", "Sous admin", "Admin"]],
+          allowNull: true,
+          notEmpty: false,
+        },
+      },
     },
     {
-        tableName: "User"
-    })
-    return User;
-    
-}
+      tableName: "User",
+    }
+  );
+  return User;
+};

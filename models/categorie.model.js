@@ -10,6 +10,11 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING(50),
       allowNull: false,
+      validate : {
+        notNull: true,
+        notEmpty: true,
+        len: [1, 50]
+      }
     }
   },
   {

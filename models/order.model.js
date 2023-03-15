@@ -8,7 +8,13 @@ module.exports = (sequelize) => {
     const Order = sequelize.define('Order', {
         status: {
             type : DataTypes.STRING(20),
-            allowNull: false
+            allowNull: false,
+            validate: {
+                notNull: true,
+                notEmpty: true,
+                len: [1, 20],
+                isIn: [['In process','Finish']]
+            }
         }
     },
     {
