@@ -59,6 +59,11 @@ const bookService = {
     const isDeleted = await db.Book.destroy({ where : { id }});
     return isDeleted[0] === 1 
   },
+
+  updateCover: async (id, cover) => {
+   
+
+  }
 };
 
 module.exports = bookService;
