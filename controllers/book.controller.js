@@ -61,6 +61,12 @@ const bookController = {
     res.sendStatus(404);
    }
    res.sendStatus(204)
+  },
+
+  updateCover: async (req,res) => {
+    const { id } = req.params;
+    const cover = req.file.filename;
+    await bookService.updateCover(id, cover)
   }
 };
 

@@ -22,8 +22,8 @@ const authController = {
    */
   login: async (req, res) => {
     const { email, password } = req.body;
+    console.log(req.body);
     const user = await authService.login(email, password);
-
     if (!user) {
       res.status(400).json(new ErrorResponse("Login error, please try again."));
       return;

@@ -25,6 +25,15 @@ module.exports = (sequelize) => {
         isFloat: true
       }
     },
+    cover: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: '/public/images/bookcover/nocover.jpg',
+      validate: {
+        notNull: true,
+        notEmpty: true
+      }
+    }
   },
   {
     tableName: "Book"
