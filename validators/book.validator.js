@@ -12,4 +12,8 @@ const bookValidator = yup.object({
   categories: yup.array().of(yup.number().integer().positive()),
 });
 
-module.exports = bookValidator;
+const coverValidator = yup.object({
+  cover: yup.mixed()
+})
+
+module.exports = {bookValidator, coverValidator};

@@ -9,16 +9,16 @@ const bookService = {
       include: [Author, Categorie],
     });
     return {
-      books: rows.map(book => new BookDTO(book)),
-      count
-    }
+      books: rows.map((book) => new BookDTO(book)),
+      count,
+    };
   },
 
   getById: async (id) => {
     const book = await db.Book.findByPk(id, {
-      include: [Author, Categorie]
-    })
-    return book ? new BookDTO(book): null;
+      include: [Author, Categorie],
+    });
+    return book ? new BookDTO(book) : null;
   },
 
   create: async (bookToCreate) => {
@@ -33,16 +33,14 @@ const bookService = {
             transaction,
           });
         }
-        
       }
-      await book.addCategorie(bookToCreate.categories, { transaction })
+      await book.addCategorie(bookToCreate.categories, { transaction });
       await transaction.commit();
       const finalBook = await db.Book.findByPk(book.id, {
-        include: [Author, Categorie]
+        include: [Author, Categorie],
       });
 
       return finalBook ? new BookDTO(finalBook) : null;
-
     } catch (error) {
       await transaction.rollback();
       return null;
@@ -50,20 +48,22 @@ const bookService = {
   },
 
   update: async (id, bookToUpdate) => {
-    const isUpdated = await db.Book.update(bookToUpdate, { where: { id }});
+    const isUpdated = await db.Book.update(bookToUpdate, { where: { id } });
     return isUpdated[0] === 1;
   },
 
   delete: async (id) => {
-
-    const isDeleted = await db.Book.destroy({ where : { id }});
-    return isDeleted[0] === 1 
+    const isDeleted = await db.Book.destroy({ where: { id } });
+    return isDeleted[0] === 1;
   },
 
   updateCover: async (id, cover) => {
-   
-
-  }
+    const data = {
+      cover: `localhost:8080/images/bookcover/${cover}`,
+    };
+    const coverUpdated = await db.Book.update( data , { where: { id }});
+    return coverUpdated[0] === 1;
+  },
 };
 
 module.exports = bookService;

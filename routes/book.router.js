@@ -1,7 +1,7 @@
 const bookController = require('../controllers/book.controller');
 const bodyValidator = require('../middlewares/body.validator');
 const authJwt = require('../middlewares/jwt-middleware');
-const bookValidator = require('../validators/book.validator');
+const {bookValidator, coverValidator} = require('../validators/book.validator');
 
 const bookRouter = require('express').Router();
 const multer = require('multer');
@@ -31,7 +31,7 @@ bookRouter.route('/:id')
     .delete(bookController.delete);
 
 bookRouter.route('/:id/updatecover')
-    .patch(upload.single('cover'),bookController.updateCover)
+    .patch(bodyValidator(coverValidator),upload.single('cover'),bookController.updateCover)
 
 
 module.exports = bookRouter;

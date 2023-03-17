@@ -1,7 +1,7 @@
 const authController = require('../controllers/auth.controller');
 const userController = require('../controllers/user.controller');
 const bodyValidator = require('../middlewares/body.validator');
-const userValidator = require('../validators/user.validator');
+const {userValidator, loginValidator} = require('../validators/user.validator');
 
 const userRouter = require('express').Router();
 
@@ -15,9 +15,9 @@ userRouter.route('/:id')
     .delete(userController.delete)
 
 userRouter.route('/auth')
-    .post(authController.register)
+    .post(bodyValidator(userValidator), authController.register)
     
 userRouter.route('/login')
-    .post(authController.login)
+    .post(bodyValidator(loginValidator),authController.login)
 
 module.exports = userRouter;
