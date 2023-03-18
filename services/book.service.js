@@ -59,7 +59,7 @@ const bookService = {
 
   updateCover: async (id, cover) => {
     const data = {
-      cover: `localhost:8080/images/bookcover/${cover}`,
+      cover: `/images/bookcover/${cover}`,
     };
     const coverUpdated = await db.Book.update( data , { where: { id }});
     return coverUpdated[0] === 1;
