@@ -65,7 +65,7 @@ module.exports = (sequelize) => {
         },
       },
       phonenumber: {
-        type: DataTypes.NUMBER(10),
+        type: DataTypes.INTEGER,
         allowNull: false,
         unique: "UK_User_PhoneNumber",
         validate: {
@@ -75,7 +75,7 @@ module.exports = (sequelize) => {
         },
       },
       password: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(100),
         allowNull: false,
         validate: {
           is: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/,

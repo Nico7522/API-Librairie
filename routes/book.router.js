@@ -23,7 +23,7 @@ const upload = multer({ storage })
 bookRouter.route('/')
     // .get(authJwt(["User"]) ,bookController.getAll)
     .get(bookController.getAll)
-    .post(bodyValidator(bookValidator),bookController.create)
+    .post(bookController.create)
 
 bookRouter.route('/:id')
     .get(bookController.getById)
@@ -31,7 +31,7 @@ bookRouter.route('/:id')
     .delete(bookController.delete);
 
 bookRouter.route('/:id/updatecover')
-    .patch(bodyValidator(coverValidator),upload.single('cover'),bookController.updateCover)
+    .patch(upload.single('cover'),bookController.updateCover)
 
 
 module.exports = bookRouter;
