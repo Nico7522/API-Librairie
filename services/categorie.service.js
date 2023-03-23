@@ -23,6 +23,10 @@ const categorieService = {
   },
 
   create: async (categorieToCreate) => {
+    const exist = await db.Categorie.findOne({ where: { name: categorieToCreate.name } })
+    if (exist != null) {
+      return categorieToCreate = 5
+    } 
     const transaction = await db.sequelize.transaction();
     let categorie;
     try {

@@ -1,6 +1,7 @@
 const { Request, Response } = require("express");
 const db = require("../models");
 const categorieService = require("../services/categorie.service");
+const ErrorResponse = require("../utils/error.response");
 const { SuccessArrayResponse, SuccessResponse } = require("../utils/success.response");
 
 const categorieController = {
@@ -32,6 +33,9 @@ const categorieController = {
   create: async (req, res) => {
     const data = req.body;
     const categorie = await categorieService.create(data);
+    if(categorie === 5){
+      res.status(404).json(new ErrorResponse('Categorie already exist'))
+    }
     res.location('/categorie/' + categorie.id);
     res.status(201).json(new SuccessResponse(categorie, 201))
   },
