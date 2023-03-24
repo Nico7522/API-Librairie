@@ -2,14 +2,14 @@ const argon2 = require("argon2");
 const UserDTO = require("../dto/user.dto");
 const { User } = require("../models");
 const db = require("../models");
-const { options } = require("../routes/user.route");
+
 
 const userService = {
   getAll: async () => {
     const { rows, count } = await db.User.findAndCountAll({
       distinct: true,
     });
-
+    console.log(rows);
     return {
       users: rows.map((user) => new UserDTO(user)),
       count,

@@ -9,7 +9,7 @@ const userController = {
      * @param { Response } res
      */
     getAll : async (req, res) => {
-        const {users, count} = await userService.getAll()
+        const { users, count } = await userService.getAll();
         res.status(200).json(new SuccessArrayResponse(users, count))
     },
         /**
