@@ -1,5 +1,5 @@
 class UserDTO {
-    constructor({id, name, surname, birtdate, adresse, email, phonenumber, role}){
+    constructor({id, name, surname, birtdate, adresse, email, phonenumber, role, avatar}){
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -7,7 +7,8 @@ class UserDTO {
         this.adresse = adresse;
         this.email = email;
         this.phonenumber = phonenumber;
-        this.role = role
+        this.role = role;
+        this.avatar = avatar;
 
     }
 

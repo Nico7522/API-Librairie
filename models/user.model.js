@@ -94,6 +94,15 @@ module.exports = (sequelize) => {
           notEmpty : true,
         },
       },
+      avatar: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: '/images/avatar/nocover.jpg',
+        validate: {
+          notNull: true,
+          notEmpty: true
+        }
+      }
     },
     {
       tableName: "User",
