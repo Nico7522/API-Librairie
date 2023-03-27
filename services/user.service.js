@@ -1,4 +1,5 @@
 const argon2 = require("argon2");
+const { where } = require("sequelize");
 const UserDTO = require("../dto/user.dto");
 const { User } = require("../models");
 const db = require("../models");
@@ -22,12 +23,21 @@ const userService = {
   },
 
   update: async (id, userToUpdate) => {
-    const masquedPwd = await argon2.hash(userToUpdate.password);
-    userToUpdate.password = masquedPwd;
+    // const masquedPwd = await argon2.hash(userToUpdate.password);
+    // userToUpdate.password = masquedPwd;
     const isUpdated = await db.User.update(userToUpdate, {
       where: { id },
     });
     return isUpdated[0] === 1;
+  },
+
+  updateAvatar: async (id, avatar) => {
+    const data = {
+      avatar: `/images/avatar/${avatar}`
+    }
+    const coverUpdated = await db.User.update(data, {where :{ id }});
+    return coverUpdated[0] === 1;
+
   },
 
   delete: async (id) => {

@@ -41,6 +41,25 @@ const userController = {
         res.location('/user/'+ id)
         res.sendStatus(204)
     },
+
+       /**
+     * @param { Request } req
+     * @param { Response } res
+     */
+    updateAvatar: async (req, res) => {
+        const {id} = req.params;
+        const avatar = req.file.filename
+        const avatarUpdated = await userService.updateAvatar(id, avatar);
+        if (!avatarUpdated) {
+            res.status(404).json(new ErrorResponse("Avatar not found", 404));
+            return;
+          }
+          res.location = "/user/" + id;
+          res.status(204).json(new SuccessResponse('Avatar has been modified', 204))
+
+
+    },
+
         /**
      * @param { Request } req
      * @param { Response } res

@@ -72,7 +72,6 @@ const bookController = {
   updateCover: async (req, res) => {
     const { id } = req.params;
     const cover = req.file.filename;
-    console.log(cover);
     const coverUpdated = await bookService.updateCover(id, cover);
     console.log(coverUpdated);
     if (!coverUpdated) {
