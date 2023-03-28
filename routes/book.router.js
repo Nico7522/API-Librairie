@@ -31,7 +31,7 @@ bookRouter.route('/:id')
     .delete(bookController.delete);
 
 bookRouter.route('/:id/updatecover')
-    .patch(upload.single('cover'),bookController.updateCover)
+    .patch(authJwt(["Admin"]) ,bodyValidator(coverValidator) ,upload.single('cover'),bookController.updateCover)
 
 
 module.exports = bookRouter;

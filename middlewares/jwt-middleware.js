@@ -11,10 +11,11 @@ const authJwt = (roles) => {
    * @param {NextFunction} next
    */
   return async (req, res, next) => {
+    console.log(req.headers);
     const bearerToken = req.headers.authorization;
-    const token = bearerToken.split(" ")[1];
-
-    if (!token || token === "") {
+    const token = bearerToken?.split(" ")[1];
+    console.log(token);
+    if (!token || token === "" || token === 'undefined') {
       res.status(401).json(new ErrorResponse("Not authorized !", 401));
       return;
     }
@@ -22,9 +23,7 @@ const authJwt = (roles) => {
 
     if (roles) {
       const user = await userService.getById(payload.id);
-      console.log(user.role.toLowerCase());
-      const rolesLowerCase = roles.map((r) => r.toLowerCase());
-      console.log(rolesLowerCase);
+      const rolesLowerCase = roles.map(r => r.toLowerCase());
       const access = rolesLowerCase.includes(user.role.toLowerCase());
 
       if (!access) {
@@ -33,6 +32,7 @@ const authJwt = (roles) => {
       }
     }
     req.user = payload;
+   
     next();
   };
 };

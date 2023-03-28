@@ -12,7 +12,7 @@ const bookValidator = yup.object({
   categories: yup.array().of(yup.number().integer().positive()),
 });
 
-const coverValidator = yup.object({
+const coverValidator = yup.object().shape({
   cover: yup.mixed()
 })
 
