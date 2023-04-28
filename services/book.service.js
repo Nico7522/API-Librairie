@@ -1,17 +1,38 @@
+const { raw } = require("mysql2");
 const BookDTO = require("../dto/book.dto");
 const { Author, Categorie } = require("../models");
 const db = require("../models");
-
+const sequelize = require("sequelize");
 const bookService = {
+  // getAll: async () => {
+  //   const { rows, count } = await db.Book.findAndCountAll({
+  //     distinct: true,
+  //     include: [Author, Categorie],
+  //   });
+  //   return {
+  //     books: rows.map((book) => new BookDTO(book)),
+  //     count,
+  //   };
+  // },
+
   getAll: async () => {
-    const { rows, count } = await db.Book.findAndCountAll({
-      distinct: true,
-      include: [Author, Categorie],
+    const result = await db.Book.findAll({
+      include: [{
+        model: Author,
+        where: { id: 4 },
+        
+      }],
+      // attributes: ['title']
+      attributes: {
+        include: [
+          [sequelize.fn("COUNT", sequelize.col("Authors.id")), "count"]],
+          
+      },
+      raw: true,
     });
-    return {
-      books: rows.map((book) => new BookDTO(book)),
-      count,
-    };
+    // return new BookDTO(result[0])
+    return result[0]
+     
   },
 
   getById: async (id) => {
@@ -61,7 +82,7 @@ const bookService = {
     const data = {
       cover: `/images/bookcover/${cover}`,
     };
-    const coverUpdated = await db.Book.update( data , { where: { id }});
+    const coverUpdated = await db.Book.update(data, { where: { id } });
     return coverUpdated[0] === 1;
   },
 };

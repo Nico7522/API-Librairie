@@ -11,10 +11,16 @@ const bookController = {
    * @param { Request} req
    * @param { Response} res
    */
+  // getAll: async (req, res) => {
+  //   const { books, count } = await bookService.getAll();
+  //   res.status(200).json(new SuccessArrayResponse(books, count));
+  // },
   getAll: async (req, res) => {
-    const { books, count } = await bookService.getAll();
-    res.status(200).json(new SuccessArrayResponse(books, count));
-  },
+    const resu = await bookService.getAll();
+ 
+    console.log(resu);
+    res.status(200).json(resu);
+},
   /**
    * @param { Request } req
    * @param { Response } res
